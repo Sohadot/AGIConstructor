@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AGIConstructor — ACL-1.0 Component Audit Protocol</title>
+<meta name="description" content="ACL-1.0, the AGI Component Ledger: a published protocol for component-level audit of general capability claims. Eight components, four states, four evidence tiers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;450;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#E8EBE8;
+  --paper:#F4F6F3;
+  --ink:#10161C;
+  --rule:#C3CAC5;
+  --rule-soft:#D8DDD9;
+  --muted:#5C6B73;
+  --signal:#2B4C7E;
+  --s-constructed:#1F6F52;
+  --s-partial:#8A6A1F;
+  --s-claimed:#A34A2A;
+  --s-absent:#8A9490;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --sans:"IBM Plex Sans",system-ui,sans-serif;
+  --maxw:960px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.6;
+  font-feature-settings:"ss01";
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+
+/* ---- top bar ---- */
+.bar{
+  position:sticky;top:0;z-index:20;background:var(--ground);
+  border-bottom:1px solid var(--rule);
+}
+.bar .wrap{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:16px;height:52px;
+}
+.bar span{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);
+}
+.bar .mark{color:var(--ink);font-weight:600}
+
+/* ---- hero ---- */
+.hero{padding:88px 0 64px;border-bottom:1px solid var(--rule)}
+.eyebrow{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--signal);margin:0 0 34px;
+  display:flex;align-items:center;gap:14px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--rule)}
+.thesis{
+  font-family:var(--mono);font-weight:500;
+  font-size:clamp(25px,4.4vw,44px);line-height:1.28;
+  letter-spacing:-.028em;margin:0;max-width:22ch;
+}
+.thesis em{font-style:normal;color:var(--signal)}
+.standfirst{
+  margin:38px 0 0;max-width:58ch;font-size:18px;color:var(--muted);
+}
+.standfirst strong{color:var(--ink);font-weight:600}
+
+/* ---- section frame ---- */
+section{padding:64px 0;border-bottom:1px solid var(--rule)}
+.shead{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--muted);margin:0 0 8px;
+}
+.stitle{
+  font-family:var(--mono);font-weight:500;font-size:22px;
+  letter-spacing:-.02em;margin:0 0 28px;
+}
+.note{color:var(--muted);max-width:60ch;margin:0 0 32px}
+
+/* ---- signature: the ledger ---- */
+.ledger{
+  background:var(--paper);border:1px solid var(--rule);
+  border-radius:2px;overflow:hidden;
+}
+.lhead{
+  display:grid;grid-template-columns:64px 1fr 128px 60px;
+  gap:12px;padding:11px 18px;border-bottom:1px solid var(--rule);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);
+}
+.row{border-bottom:1px solid var(--rule-soft)}
+.row:last-child{border-bottom:0}
+.rbtn{
+  width:100%;display:grid;grid-template-columns:64px 1fr 128px 60px;
+  gap:12px;align-items:center;padding:15px 18px;
+  background:none;border:0;text-align:left;cursor:pointer;
+  font:inherit;color:inherit;
+  transition:background .16s ease;
+}
+.rbtn:hover{background:#EAEEE9}
+.rbtn:focus-visible{outline:2px solid var(--signal);outline-offset:-2px}
+.rid{font-family:var(--mono);font-size:13px;color:var(--signal);font-weight:500}
+.rname{
+  font-family:var(--mono);font-size:14.5px;letter-spacing:.02em;
+}
+.rstate{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--s-absent);
+}
+.rstate::before{
+  content:"";display:inline-block;width:7px;height:7px;
+  border:1px solid var(--s-absent);border-radius:50%;
+  margin-right:9px;vertical-align:1px;
+}
+.rtier{
+  font-family:var(--mono);font-size:12px;color:var(--rule);
+  text-align:right;letter-spacing:.1em;
+}
+.chev{display:none}
+.panel{
+  display:none;padding:2px 18px 26px 82px;
+  border-top:1px dashed var(--rule);
+}
+.row.open .panel{display:block}
+.row.open .rbtn{background:#EAEEE9}
+.q{margin:20px 0 4px;font-size:16.5px;max-width:62ch}
+.qlab,.dlab{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);display:block;margin-top:18px;
+}
+.dis{margin:4px 0 0;padding:0;list-style:none;max-width:62ch}
+.dis li{
+  font-size:15.5px;color:var(--muted);padding:5px 0 5px 20px;position:relative;
+}
+.dis li::before{
+  content:"✕";position:absolute;left:0;color:var(--s-claimed);
+  font-size:11px;top:8px;
+}
+.lfoot{
+  padding:18px;border-top:1px solid var(--rule);background:var(--ground);
+  font-family:var(--mono);font-size:12.5px;color:var(--muted);
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+}
+
+/* ---- key blocks ---- */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:52px}
+.defs{margin:0;font-size:15.5px}
+.defs div{
+  display:grid;grid-template-columns:118px 1fr;gap:16px;
+  padding:11px 0;border-bottom:1px solid var(--rule-soft);
+}
+.defs div:last-child{border-bottom:0}
+.dt{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+.dd{color:var(--muted);font-size:15px}
+.c-con{color:var(--s-constructed)}
+.c-par{color:var(--s-partial)}
+.c-cla{color:var(--s-claimed)}
+.c-abs{color:var(--s-absent)}
+.tier{font-family:var(--mono);font-size:12px;color:var(--signal);font-weight:600}
+
+/* ---- limits ---- */
+.limits{margin:0;padding:0;list-style:none;max-width:64ch}
+.limits li{
+  padding:13px 0 13px 30px;border-bottom:1px solid var(--rule-soft);
+  position:relative;font-size:16px;color:var(--muted);
+}
+.limits li:last-child{border-bottom:0}
+.limits li::before{
+  content:"—";position:absolute;left:0;color:var(--ink);font-family:var(--mono);
+}
+.limits b{color:var(--ink);font-weight:600}
+
+/* ---- apply / footer ---- */
+.steps{counter-reset:s;margin:0;padding:0;list-style:none;max-width:60ch}
+.steps li{
+  counter-increment:s;position:relative;padding:12px 0 12px 46px;
+  border-bottom:1px solid var(--rule-soft);font-size:16px;
+}
+.steps li:last-child{border-bottom:0}
+.steps li::before{
+  content:counter(s,decimal-leading-zero);position:absolute;left:0;top:13px;
+  font-family:var(--mono);font-size:12px;color:var(--signal);letter-spacing:.08em;
+}
+.cta{
+  display:inline-block;margin-top:30px;padding:13px 26px;
+  background:var(--ink);color:var(--ground);text-decoration:none;
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.14em;
+  text-transform:uppercase;border-radius:2px;
+  transition:background .16s ease;
+}
+.cta:hover{background:var(--signal)}
+.cta:focus-visible{outline:2px solid var(--signal);outline-offset:3px}
+footer{padding:56px 0 72px;font-size:15px;color:var(--muted)}
+footer p{max-width:58ch;margin:0 0 22px}
+footer a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
+footer a:hover{border-color:var(--signal);color:var(--signal)}
+.meta{
+  display:flex;gap:30px;flex-wrap:wrap;margin-top:36px;padding-top:26px;
+  border-top:1px solid var(--rule);
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);
+}
+
+/* ---- load motion ---- */
+@media (prefers-reduced-motion:no-preference){
+  .row{opacity:0;transform:translateY(5px);animation:rule .5s ease forwards}
+  .row:nth-child(1){animation-delay:.06s}
+  .row:nth-child(2){animation-delay:.12s}
+  .row:nth-child(3){animation-delay:.18s}
+  .row:nth-child(4){animation-delay:.24s}
+  .row:nth-child(5){animation-delay:.30s}
+  .row:nth-child(6){animation-delay:.36s}
+  .row:nth-child(7){animation-delay:.42s}
+  .row:nth-child(8){animation-delay:.48s}
+}
+@keyframes rule{to{opacity:1;transform:none}}
+
+@media (max-width:760px){
+  body{font-size:16px}
+  .wrap{padding:0 20px}
+  .hero{padding:60px 0 48px}
+  section{padding:52px 0}
+  .cols{grid-template-columns:1fr;gap:44px}
+  .lhead{display:none}
+  .rbtn{grid-template-columns:52px 1fr auto;padding:14px}
+  .rtier{display:none}
+  .rstate{font-size:10.5px;text-align:right}
+  .panel{padding:2px 14px 22px 14px}
+  .defs div{grid-template-columns:1fr;gap:4px}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="wrap">
+    <span class="mark">AGIConstructor</span>
+    <span>ACL-1.0 &nbsp;·&nbsp; Published 2026</span>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Component Audit Protocol</p>
+    <h1 class="thesis">Whatever form general intelligence takes, it will have been constructed. <em>Every component is auditable.</em></h1>
+    <p class="standfirst">Asking whether a system <strong>is</strong> AGI resolves into argument, because the definition is contested. Asking <strong>which components it has built</strong> resolves into evidence. ACL-1.0 is the protocol for producing that record — and for stating plainly what could not be verified.</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <p class="shead">The instrument</p>
+    <h2 class="stitle">An unfilled ledger</h2>
+    <p class="note">Eight components. Every audit assigns each one a state and an evidence tier — no exceptions, no partial ledgers. Open a row to see what it asks and what disqualifies a claim.</p>
+
+    <div class="ledger" id="ledger">
+      <div class="lhead">
+        <div>ID</div><div>Component</div><div>State</div><div>Tier</div>
+      </div>
+      <!-- rows injected -->
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="shead">How a row is filled</p>
+    <h2 class="stitle">States and evidence</h2>
+    <div class="cols">
+      <div>
+        <div class="defs">
+          <div><div class="dt c-con">Constructed</div><div class="dd">Demonstrated at Tier A or B, repeatably, with no disqualifier present.</div></div>
+          <div><div class="dt c-par">Partial</div><div class="dd">Present but bounded — limited domain, limited persistence, or degrades under repetition.</div></div>
+          <div><div class="dt c-cla">Claimed</div><div class="dd">Asserted at Tier C or D only, or contradicted by a disqualifier.</div></div>
+          <div><div class="dt c-abs">Absent</div><div class="dd">Not present, or present only as stated intent.</div></div>
+        </div>
+        <p class="note" style="margin-top:26px">No component reaches Constructed on a single demonstration. Performing once is not construction; performing reliably is.</p>
+      </div>
+      <div>
+        <div class="defs">
+          <div><div class="dt tier">Tier A</div><div class="dd">Independent reproduction by a party with no commercial interest in the result.</div></div>
+          <div><div class="dt tier">Tier B</div><div class="dd">Developer disclosure with reproducible method, code, or open evaluation artifacts.</div></div>
+          <div><div class="dt tier">Tier C</div><div class="dd">Developer disclosure without reproducible method — technical report, system card.</div></div>
+          <div><div class="dt tier">Tier D</div><div class="dd">Marketing material, demonstration video, executive statement.</div></div>
+        </div>
+        <p class="note" style="margin-top:26px">A component's state is capped by its best available evidence. Tier C and D cannot support Constructed, however confident the claim.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="shead">Stated limits</p>
+    <h2 class="stitle">What ACL does not measure</h2>
+    <ul class="limits">
+      <li><b>Safety, alignment, or risk.</b> An independent axis. A complete ledger says nothing about either.</li>
+      <li><b>Capability level.</b> Eight constructed components is not "more capable" than five. The ledger records construction, not performance.</li>
+      <li><b>Proximity to general intelligence.</b> ACL sets no threshold and takes no position on whether one exists.</li>
+      <li><b>Component quality.</b> Constructed means present, repeatable, and evidenced. Not good.</li>
+      <li><b>Sufficiency of the component set.</b> Eight components reflect current architecture. Additions are expected, and will be versioned.</li>
+    </ul>
+    <p class="note" style="margin-top:30px">A ledger is a record of what was found. It is not a conclusion about what the system is.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="shead">Independent use</p>
+    <h2 class="stitle">Run an audit</h2>
+    <p class="note">ACL-1.0 may be applied, cited, and published by anyone. No registration, no notification, no permission. Derived ledgers need not be shared.</p>
+    <ol class="steps">
+      <li>Fix the object — name the exact system and version. A ledger is void if the object shifts.</li>
+      <li>Collect the claim set for all eight components, with source and date.</li>
+      <li>Assign the evidence tier before assessing the claim, never after.</li>
+      <li>Check disqualifiers first. A disqualifier caps the state at Claimed.</li>
+      <li>Test repeatability where access permits. Where it does not, record an access limit — not an absence.</li>
+      <li>Publish with boundary cases and access limits attached.</li>
+    </ol>
+    <a class="cta" href="./ACL-1.0.md">Read the full protocol</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>AGIConstructor.com is a reference asset developed and maintained by Sohadot, an independent practice building governed institutional references from premium domain properties.</p>
+    <p>The same separation governs the Evidence Posture Standard at Hoax.ai: classify the evidence, do not perform the verdict. ACL applies it to capability claims.</p>
+    <p>Enquiries: <a href="mailto:agent@sohadot.com">agent@sohadot.com</a></p>
+    <div class="meta">
+      <span>Protocol ACL-1.0</span>
+      <span>Status Published</span>
+      <span>Issued 2026-08-01</span>
+      <span>Maintainer Sohadot</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const C = [
+ {id:"C1",name:"Models",q:"What model or models perform inference, and is the composition disclosed?",
+  d:["Undisclosed composition where the claim depends on it","Ensemble routing presented as single-model generality"]},
+ {id:"C2",name:"Memory",q:"Does information acquired in one task change behaviour in a later, separate task without being re-supplied?",
+  d:["Context window length alone","Retrieval over a static corpus","Session state that resets at evaluation boundaries","Memory that is written but never demonstrably read"]},
+ {id:"C3",name:"Tools",q:"Can the system select, sequence, and recover from failure across tools it was not scripted for?",
+  d:["Fixed pipelines presented as autonomous selection","Single-tool invocation","Human selection of the tool with the system only filling arguments"]},
+ {id:"C4",name:"Environments",q:"Does the system act on an environment whose state its own prior actions have changed?",
+  d:["Stateless request–response","Environments reset between every trial where the claim implies persistence"]},
+ {id:"C5",name:"Feedback",q:"Does outcome information change behaviour, and on what timescale — training-time only, or during operation?",
+  d:["Training-time feedback presented as runtime adaptation","Self-critique loops with no external outcome signal","Feedback whose effect is not measured"]},
+ {id:"C6",name:"Coordination",q:"When two processes produce incompatible outputs, what resolves the conflict, and is that mechanism disclosed?",
+  d:["Sequential prompting described as multi-agent","Coordination with no conflict-resolution path","Orchestration performed by a human operator"]},
+ {id:"C7",name:"Authority",q:"Is there an enforced boundary between actions taken unilaterally and actions requiring authorisation, and who holds it?",
+  d:["Boundary defined only in prompt text","Boundary documented but not enforced in execution","No named holder of authorisation"]},
+ {id:"C8",name:"Verification",q:"Who or what verifies the output, is that verifier independent of the generator, and does it hold across repetitions?",
+  d:["Self-verification by the same model","One-time demonstration","Verification against a benchmark the system was optimised on"]}
+];
+
+const led = document.getElementById("ledger");
+C.forEach(c=>{
+  const row = document.createElement("div");
+  row.className = "row";
+  row.innerHTML =
+    '<button class="rbtn" aria-expanded="false">'+
+      '<span class="rid">'+c.id+'</span>'+
+      '<span class="rname">'+c.name+'</span>'+
+      '<span class="rstate">Unassigned</span>'+
+      '<span class="rtier">— —</span>'+
+    '</button>'+
+    '<div class="panel">'+
+      '<span class="qlab">Audit question</span>'+
+      '<p class="q">'+c.q+'</p>'+
+      '<span class="dlab">Disqualifiers</span>'+
+      '<ul class="dis">'+c.d.map(x=>'<li>'+x+'</li>').join("")+'</ul>'+
+    '</div>';
+  const btn = row.querySelector(".rbtn");
+  btn.addEventListener("click",()=>{
+    const open = row.classList.toggle("open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+  led.appendChild(row);
+});
+
+const foot = document.createElement("div");
+foot.className = "lfoot";
+foot.innerHTML = "<span>8 components · 0 assigned</span><span>This ledger is filled by whoever runs the audit.</span>";
+led.appendChild(foot);
+</script>
+</body>
+</html>
