@@ -42,15 +42,27 @@ finding cannot be attributed to "OpenHands" — only to one configuration of it.
 sub-findings below are facets of this one discovery, each pointing at a required field of
 the Audit Object Lock.
 
-### TF-001-A — Distribution lineage
+### TF-001-A — Distribution and artifact lineage (now VERIFIED, concretely)
 "OpenHands" names at least three distributions — OSS (MIT), Cloud (multi-tenant SaaS +
-self-hosted), Enterprise — with materially different architecture, licensing, auth, and
-inspectability (e.g. Enterprise adds SAML/RBAC, LLM gateway & budgeting, observability,
-plugin marketplace). Additionally, the release bundles **independently-versioned
-sub-components** (agent-server, automation, typescript-client) and the PyPI `openhands-ai`
-lineage does not trivially equal the GitHub application release tag. *Lock field:
-Distribution + Release tag + sub-component versions.* **Candidate protocol gap** (overlaps
-`ACL-2.0-CANDIDATES.md` C-06).
+self-hosted), Enterprise. Read-only source inspection then surfaced a stronger, verified
+fact: the *number* "1.8.0" itself names **distinct artifacts** built from different sources:
+
+- **GitHub tag `v1.8.0`** (`OpenHands/OpenHands`, commit `c7a765d…`, lightweight tag) =
+  **`@openhands/agent-canvas` v1.8.0** — a TypeScript/Electron *control-center UI* that
+  orchestrates other agents (OpenHands, Claude Code, Codex, Gemini via ACP). Not the agent,
+  not the `openhands` CLI.
+- **PyPI `openhands-ai` 1.8.0** (uploaded 2026-06-10) = the **Python agent framework / CLI**
+  (deps include `anthropic`, `browsergym`). Latest is actually **1.11.0**. Its source commit
+  is unresolved: the declared repo at tag `v1.8.0` is Agent Canvas, so the Python source
+  pre-dates the repo's pivot.
+- Plus separately-versioned sub-components (agent-server 1.39.1, automation 1.5.0,
+  typescript-client 1.36.1).
+
+The `All-Hands-AI/OpenHands` → `OpenHands/OpenHands` rename is confirmed (identical tag
+SHAs). *Lock fields: Distribution + Artifact (Agent Canvas vs openhands-ai) + Release +
+source commit + sub-component versions.* **Candidate protocol gap** (overlaps
+`ACL-2.0-CANDIDATES.md` C-06). See `source-pin.md` for the full evidence table. This is the
+object-identity trap caught in practice, before any classification.
 
 ### TF-001-B — Execution surface
 Within OSS, OpenHands runs as a local GUI (Agent Canvas), a CLI, and an SDK/headless
