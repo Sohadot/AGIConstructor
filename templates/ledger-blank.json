@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema/agicl-1.0.schema.json",
+  "protocol": "ACL-1.0",
+  "system": {
+    "name": "",
+    "version": ""
+  },
+  "audit_date": "",
+  "auditor": "",
+  "components": {
+    "C1": { "state": "", "tier": "", "basis": "" },
+    "C2": { "state": "", "tier": "", "basis": "" },
+    "C3": { "state": "", "tier": "", "basis": "" },
+    "C4": { "state": "", "tier": "", "basis": "" },
+    "C5": { "state": "", "tier": "", "basis": "" },
+    "C6": { "state": "", "tier": "", "basis": "" },
+    "C7": { "state": "", "tier": "", "basis": "" },
+    "C8": { "state": "", "tier": "", "basis": "" }
+  },
+  "boundary_cases": [],
+  "access_limits": []
+}

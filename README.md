@@ -18,9 +18,21 @@ This asset takes a different position. General capability is not announced — i
 
 ## What Is Here
 
-**[ACL-1.0](./ACL-1.0.md)** — the AGI Component Ledger. A published audit protocol: eight components, four classification states, four evidence tiers, seven boundary cases, and an explicit statement of what the protocol does not measure.
+AGIConstructor is a layered reference asset. Each layer presupposes the one above it — see [ARCHITECTURE.md](./ARCHITECTURE.md) for the full stack.
 
-ACL is designed to be applied by others without permission. An analyst, journalist, evaluation researcher, or diligence team can run a ledger on a real system and publish the result. That is its intended use.
+| Layer | Document | Role |
+|---|---|---|
+| Foundation | **[FOUNDATION_DOCTRINE.md](./FOUNDATION_DOCTRINE.md)** | Why construction is a classificatory position, not a prediction; the AGIConstructor↔ACL relationship |
+| Ontology | **[CONSTRUCTION_ONTOLOGY.md](./CONSTRUCTION_ONTOLOGY.md)** | The audit surfaces, grouped into families; neither necessary nor sufficient conditions for AGI |
+| Instrument | **[ACL-1.0.md](./ACL-1.0.md)** | The AGI Component Ledger — eight components, four states, four evidence tiers, seven boundary cases (frozen) |
+| Ledgers | [schema/](./schema/) · [templates/](./templates/) · [examples/](./examples/) | Machine-readable schema, blank templates (JSON/YAML/CSV), one worked illustrative example |
+| Registry | *future* | Machine validation and a versioned public registry of published ledgers |
+
+**[ACL-1.0](./ACL-1.0.md)** is the audit instrument at the centre of the asset: a published protocol with eight components, four classification states, four evidence tiers, seven boundary cases, and an explicit statement of what it does not measure.
+
+ACL is designed to be applied by others without permission. An analyst, journalist, evaluation researcher, or diligence team can run a ledger on a real system and publish the result. That is its intended use. Start from a blank template in [templates/](./templates/) and validate against [schema/agicl-1.0.schema.json](./schema/agicl-1.0.schema.json).
+
+Governance: [LICENSE](./LICENSE) (dual: CC BY 4.0 for standards, MIT for artifacts) · [CHANGELOG.md](./CHANGELOG.md) · [RELEASES.md](./RELEASES.md) · [ACL-2.0-CANDIDATES.md](./ACL-2.0-CANDIDATES.md) (post-publication design candidates; ACL-1.0 stays frozen).
 
 ## What This Is Not
 
