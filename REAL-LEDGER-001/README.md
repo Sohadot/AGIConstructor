@@ -1,8 +1,10 @@
-# REAL-LEDGER-001 — OpenHands Python Agent (`openhands-ai` 1.11.0)
+# REAL-LEDGER-001 — OpenHands Python Agent App Server (`openhands-ai` 1.11.0)
 
 **The first attempt to apply ACL-1.0 to a real system. Not yet a completed ledger.**
 
-Object: **`openhands-ai` 1.11.0** (PyPI), pinned local containerized execution.
+Object: **`openhands-ai` 1.11.0** (PyPI), **app-server surface**
+(`uvicorn openhands.app_server.app:app`), pinned local containerized execution, exercised
+through a fixed programmatic audit harness. See [`surface-contract.md`](./surface-contract.md).
 Status: **OBJECT-DEFINITION / DEPLOYMENT-PLANNING PHASE** — no component has been classified.
 Opened: 2026-08-03
 Auditor: Sohadot (in progress)
@@ -40,8 +42,12 @@ OpenHands can or cannot do has been made. This is the setup and methodology reco
 - [`source-pin.md`](./source-pin.md) — resolving the exact source (tag, commit, image
   digest, sub-component versions, feature provenance); resolved-where-verifiable, blockers
   stated.
+- [`surface-contract.md`](./surface-contract.md) — the app-server surface resolved from the
+  wheel source (server invocation, endpoints, confirmation wiring), the object-vs-harness
+  boundary, and the smoke gate.
 - [`deployment-plan.md`](./deployment-plan.md) — the exact pre-execution plan (runtime,
-  CLI, default configuration, task suite, gates). No paid execution or credentials yet.
+  app-server invocation, default configuration, task suite, gates). No paid execution or
+  credentials yet.
 
 ## Rules for this ledger
 

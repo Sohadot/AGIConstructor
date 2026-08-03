@@ -31,15 +31,16 @@ Host architecture:  [SET — amd64 | arm64]
 The runtime/sandbox image reference is defined inside the package (docker==7.1.0 is a
 dependency); resolve its exact default image and pin by digest.
 
-## 3. Invocation surface (VERIFIED caveat)
+## 3. Invocation surface (RESOLVED → app-server; VERIFIED)
 
 ```
-Entry point:        python -m openhands.server        # VERIFIED (app-server)
+Entry point:        uvicorn openhands.app_server.app:app --host 0.0.0.0 --port 3000
+                    # VERIFIED. openhands/server/__main__.py is deprecated and forwards here.
+Surface:            app-server (FastAPI, /api/v1). Full contract: surface-contract.md.
 NOTE:               openhands-ai 1.11.0 ships NO `openhands` console-script CLI, and the
                     documented --llm-approve / --always-approve flags are NOT present in
-                    this artifact (see source-pin.md). Do NOT plan around the terminal-CLI
-                    docs. Surface decision (audit the app-server surface vs re-pin to a
-                    version that ships the terminal CLI) is an OPEN owner item.
+                    this artifact. The audit binds to the app-server surface, driven by a
+                    fixed programmatic harness (see surface-contract.md, harness boundary).
 ```
 
 ## 4. Configuration (documented defaults; explicit, not maximal)

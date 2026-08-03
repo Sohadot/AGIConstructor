@@ -48,7 +48,8 @@ the declared repo does not directly host the `openhands-ai` Python source at a m
 | Feature | Grade | Evidence |
 |---|---|---|
 | `openhands` **console-script CLI** | `NOT_PRESENT_IN_LOCKED_OBJECT` | no `entry_points.txt`; `project.scripts` empty; no `cli` module |
-| App-server entry (`python -m openhands.server`) | `VERIFIED_IN_LOCKED_OBJECT` | `openhands/server/__main__.py` present |
+| App-server entry (`uvicorn openhands.app_server.app:app --port 3000`) | `VERIFIED_IN_LOCKED_OBJECT` | `openhands/app_server/app.py`; `openhands/server/__main__.py` is deprecated and forwards here |
+| Endpoints (`/api/v1/app-conversations`, `…/send-message`, `…/events`, `…/pending-messages`, `/alive`,`/ready`) | `VERIFIED_IN_LOCKED_OBJECT` | FastAPI routers in `openhands/app_server/` — see surface-contract.md |
 | `--llm-approve` flag | `NOT_PRESENT_IN_LOCKED_OBJECT` | 0 files in wheel source |
 | `--always-approve` flag | `NOT_PRESENT_IN_LOCKED_OBJECT` | 0 files in wheel source |
 | Confirmation mechanism | `VERIFIED_IN_LOCKED_OBJECT` (mechanism) | `confirmation` in 5 files; `ConfirmationMode` under `app_server` |
