@@ -28,9 +28,14 @@ OpenHands can or cannot do has been made. This is the setup and methodology reco
   configuration hash) are **unset**: they require an actual pinned deployment, which has
   not been performed. A real classification pass cannot begin until this file is complete.
 - [`trial-findings.md`](./trial-findings.md) — methodological findings that emerged while
-  fixing the object. These are *trial findings* about applying ACL-1.0, **not** protocol
-  changes and **not** component results. Whether any of them warrants a future protocol
-  change is deferred to a package review after the trial is complete.
+  fixing the object, reorganized under two central discoveries. These are *trial findings*
+  about applying ACL-1.0, **not** protocol changes and **not** component results. Whether
+  any warrants a future protocol change is deferred to a package review.
+- [`source-pin.md`](./source-pin.md) — resolving the exact source (tag, commit, image
+  digest, sub-component versions, feature provenance); resolved-where-verifiable, blockers
+  stated.
+- [`deployment-plan.md`](./deployment-plan.md) — the exact pre-execution plan (runtime,
+  CLI, default configuration, task suite, gates). No paid execution or credentials yet.
 
 ## Rules for this ledger
 
