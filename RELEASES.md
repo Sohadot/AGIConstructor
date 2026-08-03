@@ -19,18 +19,21 @@ references.
 
 ## Tags
 
-| Tag | Points at | Meaning |
+| Tag | Target commit (SHA) | Meaning |
 |---|---|---|
-| `ACL-1.0` | the published ACL-1.0 protocol | Stable, immutable reference to the AGI Component Ledger as first published (2026-08-01). The document behind this tag will not change. |
-| `v0.1.0` | initial repository publication | ACL-1.0.md, README.md, index.html as first published. |
-| `v0.2.0` *(planned)* | this foundation phase | Adds doctrine, ontology, architecture, schema, templates, worked example, license, and governance files around the frozen ACL-1.0. |
+| `ACL-1.0` | `3ddd4cf9118476c871a207af7010d155ce227233` | Stable, immutable reference to the AGI Component Ledger document as first introduced (commit "Add ACL-1.0 document for AGI audit protocol"). The document behind this tag will not change. |
+| `v0.1.0` | `d5e3945a28d8b858285aacd39c3a63b4ced3f91d` | Initial repository publication complete — ACL-1.0.md, README.md, index.html. |
+| `v0.2.0` *(planned)* | the eventual merge commit of PR #1 (foundation phase) | Adds doctrine, ontology, architecture, schema, templates, worked example, license, and governance files around the frozen ACL-1.0. Not yet known; set to the merge commit after PR #1 merges. |
 
-> **Note on tag creation.** The `ACL-1.0` and `v0.1.0` tags mark commits already
-> on `main`. They are created on `main`, not on a feature branch, so that the
-> published protocol is anchored to its canonical history. This foundation-phase
-> work lands via its own pull request; the `v0.2.0` tag is applied to `main`
-> only after that PR is merged. Creating the `ACL-1.0` tag is a maintainer
-> action on `main` and is intentionally not performed from the feature branch.
+> **Note on tag creation.** The `ACL-1.0` and `v0.1.0` tags mark the exact
+> historical commits above — both already on `main`. They must be created
+> pointing at those SHAs, **not** at any post-merge head, so the published
+> protocol is anchored to its canonical history. The `ACL-1.0` tag deliberately
+> points at commit `3ddd4cf` (where the protocol document was introduced),
+> never at a later commit. This foundation-phase work lands via PR #1; the
+> `v0.2.0` tag is applied to `main` only after that PR merges, at its merge
+> commit. Creating these tags is a maintainer action on `main` and is
+> intentionally not performed from the feature branch.
 
 ## Immutability guarantee
 

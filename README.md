@@ -1,6 +1,8 @@
 # AGIConstructor.com
 
-**A reference layer for component-level audit of general capability claims.**
+**A reference layer for the auditable construction of general-capability systems.**
+
+It publishes doctrine, ontology, audit instruments and evidence ledgers for recording what has been constructed — without declaring whether a system is AGI. Component-level audit (via ACL) is one instrument within that layer, not the whole of it.
 
 ---
 

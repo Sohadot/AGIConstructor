@@ -1,0 +1,21 @@
+{
+  "$schema": "../../schema/agicl-1.0.schema.json",
+  "document_status": "illustrative",
+  "notes": "INVALID FIXTURE. C1 is Constructed at Tier C, which ACL-1.0 §5 forbids. This file MUST be rejected by the schema. It is otherwise well-formed so the tier rule is the sole reason for rejection.",
+  "protocol": "ACL-1.0",
+  "system": { "name": "INVALID-FIXTURE (fictional)", "version": "0" },
+  "audit_date": "2026-08-03",
+  "auditor": "Test fixture",
+  "components": {
+    "C1": { "state": "Constructed", "tier": "C", "basis": "Illegal: Constructed cannot rest on Tier C evidence." },
+    "C2": { "state": "Absent", "tier": "A", "basis": "ok" },
+    "C3": { "state": "Absent", "tier": "A", "basis": "ok" },
+    "C4": { "state": "Absent", "tier": "A", "basis": "ok" },
+    "C5": { "state": "Absent", "tier": "A", "basis": "ok" },
+    "C6": { "state": "Absent", "tier": "A", "basis": "ok" },
+    "C7": { "state": "Absent", "tier": "A", "basis": "ok" },
+    "C8": { "state": "Absent", "tier": "A", "basis": "ok" }
+  },
+  "boundary_cases": [],
+  "access_limits": []
+}

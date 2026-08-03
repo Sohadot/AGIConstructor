@@ -31,7 +31,7 @@ This holds whatever form general intelligence eventually takes. A system need no
 
 "Construction" is chosen deliberately over "capability," "intelligence," or "generality."
 
-- **Capability** invites measurement of degree, which invites ranking, which invites advocacy. Construction is binary at the component level — a thing is built or it is not — and defers degree entirely.
+- **Capability** invites measurement of degree, which invites ranking, which invites advocacy. Construction is *decomposable* at the component level: presence, limitation, claim posture, and demonstrated absence can each be recorded separately rather than collapsed into a system-wide verdict. It defers the question of degree entirely. (ACL-1.0 encodes this decomposition directly in its four states — Constructed, Partial, Claimed, Absent — so a bounded or degrading component is recorded as Partial, not forced into a built/not-built binary.)
 - **Intelligence** is contested and undefined. Construction is observable: it leaves artifacts, disclosures, and reproducible behavior.
 - **Generality** is the subject of the dispute we are declining to enter. Construction is neutral to it.
 
@@ -52,7 +52,7 @@ The layer stack is set out in [ARCHITECTURE.md](./ARCHITECTURE.md):
 
 > Foundation Doctrine → Construction Ontology → ACL audit instrument → Ledgers → Validator / Registry (future)
 
-Reading ACL as "all of AGIConstructor" is the error this document exists to prevent. ACL is the fourth-layer evidence ledger. It presupposes the first two layers; it does not replace them.
+Reading ACL as "all of AGIConstructor" is the error this document exists to prevent. ACL is the **third-layer audit instrument**; the ledgers it produces are the fourth layer. It presupposes the first two layers; it does not replace them.
 
 ## 4. The three distinctions that must never collapse
 
@@ -62,7 +62,7 @@ An auditable record depends on keeping three things separate. Collapsing any pai
 2. **What is publicly evidenced.** The subset of construction that is disclosed, demonstrated, or independently reproduced — and at what tier of evidence.
 3. **What the instrument can currently classify.** The subset of the evidenced world that ACL-1.0's states, tiers, and disqualifiers are able to resolve.
 
-A ledger reports the **intersection** of these three. It is not a claim about (1) beyond what (2) supports, and it is bounded by (3). Where (1) exceeds (2) — a component is built but not evidenced — the honest finding is *not demonstrated*, recorded with an explicit access limit, never *absent*. Absence is a finding, and a finding requires evidence.
+A ledger reports the **intersection** of these three. It is not a claim about (1) beyond what (2) supports, and it is bounded by (3). Where (1) exceeds (2) — a component is built but not independently evidenced — ACL-1.0 does not infer *Absent* from inaccessibility. Where a claim exists but access is limited, it records the component as **Claimed** with an explicit access-limit note (ACL-1.0 §7, B-06); absence is itself a finding, and a finding requires evidence. The residual case — a closed system with *neither* an explicit claim *nor* testable access — is a documented limitation of ACL-1.0, carried as a candidate `Undetermined` state for a future version (see [ACL-2.0-CANDIDATES.md](./ACL-2.0-CANDIDATES.md), C-02), not resolved by the current instrument.
 
 ## 5. Independence from safety and capability
 

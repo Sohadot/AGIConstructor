@@ -20,8 +20,9 @@ status are unchanged.** No ACL-2.0 is drafted.
   ACL; the three distinctions (exists / evidenced / classifiable); independence
   from the safety and capability axes.
 - `CONSTRUCTION_ONTOLOGY.md` — the eight audit surfaces grouped into three
-  families (constitutive substrate / integrative mechanisms / control and
-  assurance), stated explicitly as neither necessary nor sufficient conditions
+  families (capability substrate & operational interfaces / integrative
+  mechanisms / control and assurance), stated explicitly as neither necessary
+  nor sufficient conditions
   for AGI. Interpretive companion to ACL-1.0; does not change the protocol.
 - `ARCHITECTURE.md` — the layer stack: Foundation Doctrine → Construction
   Ontology → ACL-1.0 instrument → Ledgers → Validator/Registry (future).

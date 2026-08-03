@@ -31,17 +31,26 @@ ACL-1.0 already states this in its §10 (sufficiency of the component set). This
 
 The eight components are not of the same order. Naming them all "components" hides a real difference in kind. Grouped by role in the constructed system:
 
-### Family I — Constitutive substrate
-*The materials from which capability is assembled.*
+### Family I — Capability substrate and operational interfaces
+*What the system's capability rests on, and the interfaces through which it acts.*
+
+This family holds two distinguishable sub-kinds. They are grouped because both are largely architectural audit surfaces — what is present, disclosed, and reproducible — but they are not the same kind of thing, and the audit should not treat them as such.
+
+**Internal substrate** — the capability the system carries within itself:
 
 | Component | Audit surface |
 |---|---|
 | **C1 — Models** | The inference substrate producing outputs |
 | **C2 — Memory** | Retention of state that persists and alters later behavior |
+
+**Operational interfaces** — how the system reaches beyond itself; these need not be part of what the system is *made of* (tools may be external services it calls; an environment may be a world it merely acts within):
+
+| Component | Audit surface |
+|---|---|
 | **C3 — Tools** | Invocation and composition of external capability |
 | **C4 — Environments** | Operation within a state-bearing world with persistent consequences |
 
-These are the parts a system is *made of*. Their audit surface is largely architectural: what is present, disclosed, and reproducible.
+Keeping the two sub-kinds distinct avoids the ontological error of describing external tools and environments as "materials the system is made of." A tool the system calls is not constitutive of it; an environment it acts within is not part of its substance.
 
 ### Family II — Integrative mechanisms
 *What binds the substrate into behavior over time.*
