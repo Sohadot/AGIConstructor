@@ -74,7 +74,7 @@ These are the most consequential to distinguish. **Authority and Verification ar
 
 ## 4. Why the families matter to an auditor
 
-- They prevent a **category error**: reading "8/8 Constructed" as though all eight measured the same kind of thing. Four are materials, two are dynamics, two are controls. A ledger dense in Family I but empty in Family III describes a very different system from the reverse.
+- They prevent a **category error**: reading "8/8 Constructed" as though all eight measured the same kind of thing. Two are substrate elements, two are operational interfaces, two are integrative mechanisms, and two are control-and-assurance surfaces. A ledger dense in Family I but empty in Family III describes a very different system from the reverse.
 - They locate the components **most often absent and most often material** to adoption — C7 (Authority) and C8 (Verification), the control-and-assurance family — which public capability claims routinely omit.
 - They clarify that a system lacking a Family II or Family III surface is not thereby "less intelligent"; it is differently constructed. This keeps the construction axis clear of the capability axis (see [FOUNDATION_DOCTRINE.md](./FOUNDATION_DOCTRINE.md) §5).
 

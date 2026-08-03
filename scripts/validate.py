@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
-"""Validate AGICL ledgers against the ACL-1.0 schema and enforce ACL-1.0 immutability.
+"""Validate AGICL ledgers against the ACL-1.0 schema and detect ACL-1.0 drift.
 
 Checks:
   1. The schema itself is a valid JSON Schema (draft 2020-12).
   2. The worked example and every tests/valid/*.json validate.
   3. Every tests/invalid/*.json is rejected (e.g. Constructed at Tier C).
   4. Blank JSON template parses.
-  5. ACL-1.0.md is unchanged (sha256 matches tests/ACL-1.0.md.sha256).
+  5. ACL-1.0.md drift check: its sha256 matches the pinned tests/ACL-1.0.md.sha256.
+
+Note on check 5: this detects accidental drift in ACL-1.0.md against a pinned
+checksum. It does not by itself prevent a deliberate, simultaneous edit of both
+the document and its checksum in one change. Full immutability additionally
+depends on the immutable ACL-1.0 tag and repository/branch protections.
 
 Exit code 0 on success, 1 on any failure. Requires: jsonschema.
 """
@@ -71,7 +76,7 @@ for p in sorted((ROOT / "tests" / "invalid").glob("*.json")):
 json.loads((ROOT / "templates" / "ledger-blank.json").read_text())
 print("PASS parse: templates/ledger-blank.json")
 
-# 5. ACL-1.0 immutability
+# 5. ACL-1.0 drift check (pinned checksum)
 acl = ROOT / "ACL-1.0.md"
 digest = hashlib.sha256(acl.read_bytes()).hexdigest()
 expected = (ROOT / "tests" / "ACL-1.0.md.sha256").read_text().split()[0].strip()

@@ -21,7 +21,7 @@ The predictive question — *has general intelligence arrived, and when will it?
 
 The classificatory position replaces that question with one that survives regardless of when — or whether — anyone agrees that AGI has arrived:
 
-> A general-capability system is **assembled**. It is built from components. Each component either exists or does not, is evidenced or is not, and can be examined component by component.
+> A general-capability system is **assembled** from distinguishable construction surfaces. Each surface can be examined for what is present, limited, claimed, or demonstrably absent — and for the evidence supporting that finding.
 
 This holds whatever form general intelligence eventually takes. A system need not *be* AGI for its construction to be auditable. The doctrine does not wait on a threshold; it records what was built.
 

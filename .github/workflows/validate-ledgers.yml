@@ -14,5 +14,5 @@ jobs:
           python-version: "3.12"
       - name: Install dependencies
         run: pip install jsonschema
-      - name: Validate ledgers, schema, and ACL-1.0 immutability
+      - name: Validate ledgers, schema, and ACL-1.0 drift check
         run: python scripts/validate.py
