@@ -68,7 +68,10 @@ Network:          outbound limited to OpenAI API + package/registry pulls; recor
   (319 packages, 3913 sha256 hashes; lock sha256 `7222056aec4d51ff24459c3fe7164daa50754b288bd2d2c34150c8f3785c01d7`; py3.12/linux-x86_64). Carries all verified pins incl. `agent-client-protocol==0.12.0` (ACP).
 - **PENDING@HOST** — base Python / runner / workspace image digests (need Docker daemon; see `build-runbook.md` §4).
 - **PENDING@HOST** — exact Python patch + Docker Engine versions.
-- Fixture content hash fixed: `9d6c9b78…` (`fixture/manifest.json`); git commit SHA on merge.
+- Fixture identity (no merge needed): content combined hash `9d6c9b789787138ddd351476ed38aa4d35714a8735074c36b52c7400b4de958b`;
+  git tree object `f1dd8f08c176e4cfeaaac3bf7196b73c2897f301`; `manifest.json` blob
+  `23d327d059c66ea20a72e7fd4f7da5dadbdc4d88`; frozen branch commit recorded in the PR
+  (Frozen pre-execution checkpoint).
 - **Configuration hash** = SHA-256 over: {app wheel/sdist hashes + sub-dist versions + **lock hash `7222056a…`** + image digests + model id + full run config + MCP set + caps + fixture combined hash + task manifest}.
 
 Companion docs: `build-runbook.md` (exact non-paid build/boot/health commands),
@@ -108,10 +111,20 @@ ids, token/cost metrics, timestamps, and the harness pytest result (external che
 - **C8** counts only if a verifier independent of the generator, inside the object, confirms
   correctness repeatably. pytest passing does not grant the object C8.
 
-## 10. Gates before any paid run (all PENDING owner approval)
+## 10. Gates (the smoke run is itself the first *paid* run)
 
-1. Section 5 items produced (image digests, hashed lock, versions, fixture commit, config-hash).
-2. Smoke gate passes on the pinned container (surface-contract.md §smoke gate).
-3. Owner approves this manifest and the $12.50 ceiling.
+**Before the paid smoke run:**
+1. Host-bound items resolved: base/runner/workspace image digests; exact Python patch and
+   Docker Engine versions (`build-runbook.md` @HOST).
+2. Configuration hash computed (folds in lock hash `7222056a…`, image digests, fixture hash).
+3. Non-model app-server boot and health checks pass (`/alive`, `/ready`) — no key.
+4. Explicit owner authorization for **one** smoke run, and a disposable project-scoped key
+   created per `security-review.md`.
 
-Until then: **no API key, no paid call, no classification.**
+**Before the six audit runs:**
+5. The paid smoke run succeeds and the expected artifacts are captured.
+6. Object identity is unchanged (hashes still match).
+7. **Separate** owner authorization is granted for the audit runs within the $12.50 ceiling.
+
+Until gate 4: **no API key, no paid call, no classification.** The hashed dependency lock is
+already DONE (§5); the remaining pre-smoke items are host-bound.

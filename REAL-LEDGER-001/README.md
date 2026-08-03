@@ -5,10 +5,14 @@
 Object: **`openhands-ai` 1.11.0** (PyPI), **app-server surface**
 (`uvicorn openhands.app_server.app:app`), pinned local containerized execution, exercised
 through a fixed programmatic audit harness. See [`surface-contract.md`](./surface-contract.md).
-Status: **OBJECT-DEFINITION / DEPLOYMENT-PLANNING PHASE** — no component has been classified.
+Status: **PAUSED — NON-PAID PRE-EXECUTION RECORD** — no component has been classified.
 Opened: 2026-08-03
-Auditor: Sohadot (in progress)
+Auditor: Sohadot (paused)
 Protocol: ACL-1.0 (frozen; not modified by this ledger)
+
+> **No further work is authorized** until a suitable Docker host is available and the owner
+> separately decides whether live behavioral evidence justifies creating a disposable API
+> key. No API key, no model call, and no C1–C8 classification have occurred.
 
 > The object was re-pinned during source resolution: the GitHub tag `v1.8.0` proved to be
 > `@openhands/agent-canvas` (a GUI orchestrator), while the agent/CLI is the independently

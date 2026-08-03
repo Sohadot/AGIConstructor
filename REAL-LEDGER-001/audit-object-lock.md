@@ -34,8 +34,9 @@ Pinned sub-distributions: openhands-sdk==1.34.0 (agent core + LLM config; wheel
                        35f7012f1e09c9edd6c5be3797daea4ed9f23751b2b802107ce2f3b069aef85b),
                        openhands-agent-server==1.34.0, openhands-tools==1.34.0,
                        litellm==1.84.1, openai==2.33.0, docker==7.1.0   # VERIFIED (== pins)
-Dependency lock:       [PRODUCE at install — full resolution with hashes (uv/pip); 85
-                       declared deps]
+Dependency lock:       build/openhands-ai-1.11.0.lock.txt   # VERIFIED
+Lock SHA-256:          7222056aec4d51ff24459c3fe7164daa50754b288bd2d2c34150c8f3785c01d7
+Lock resolution:       319 packages / 3,913 SHA-256 hashes / py3.12 / linux-x86_64
 Runner image digest:   [SET at deployment — pin by digest]
 Workspace image digest:[SET at deployment — pin by digest if distinct]
 Model backend:         openai/gpt-5-2025-08-07  (OpenAI direct; VERIFIED in the object's
