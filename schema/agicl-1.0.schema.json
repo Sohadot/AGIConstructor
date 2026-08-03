@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agiconstructor.com/schema/agicl-1.0.schema.json",
+  "title": "AGICL Ledger (ACL-1.0)",
+  "description": "A structural schema for the minimum machine-readable ACL-1.0 reporting format. It encodes the eight components, four classification states, and four evidence tiers, and enforces the one rule JSON Schema can enforce: Tier C/D evidence cannot support a Constructed state (ACL-1.0 §5). It does NOT and cannot verify repeatability, that disqualifiers were checked, or that stated evidence matches its sources — those remain auditor judgments under ACL-1.0. Passing this schema means a ledger is well-formed, not that it is a correct audit. Filename uses the AGICL technical namespace; the published protocol name remains 'ACL-1.0'. See ACL-1.0.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol", "system", "audit_date", "auditor", "components", "boundary_cases", "access_limits"],
+  "properties": {
+    "$schema": {
+      "description": "Optional editor hint pointing at this schema. Not part of ACL-1.0; permitted so authored ledgers and templates remain valid.",
+      "type": "string"
+    },
+    "document_status": {
+      "description": "Optional status of this ledger document. 'illustrative' marks a fictional teaching example that is not an audit of any real system.",
+      "type": "string",
+      "enum": ["illustrative", "draft", "published"]
+    },
+    "notes": {
+      "description": "Optional free-text note about the document (e.g. a fictional-example disclaimer). Not part of the audit result.",
+      "type": "string"
+    },
+    "protocol": {
+      "description": "The instrument and version this ledger was produced under. Fixed for this schema.",
+      "const": "ACL-1.0"
+    },
+    "system": {
+      "description": "The exact object under audit. A ledger is invalid if the object shifts between components (ACL-1.0 §6.1).",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "minLength": 1 }
+      }
+    },
+    "audit_date": {
+      "description": "Date the audit was completed (ISO 8601, YYYY-MM-DD).",
+      "type": "string",
+      "format": "date",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "auditor": {
+      "description": "Name or organization performing the audit.",
+      "type": "string",
+      "minLength": 1
+    },
+    "sources": {
+      "description": "Optional source register. ACL-1.0 §6.2 requires each claim to be recorded with source and date; this array lets a ledger carry those sources by id so components can reference them.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "title", "date", "type"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "title": { "type": "string", "minLength": 1 },
+          "date": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+          "type": {
+            "description": "Nature of the source. Aligns loosely with evidence tiers but does not itself set the tier.",
+            "type": "string",
+            "enum": [
+              "independent_reproduction",
+              "developer_disclosure_reproducible",
+              "developer_disclosure",
+              "marketing"
+            ]
+          },
+          "url": { "type": "string" }
+        }
+      }
+    },
+    "components": {
+      "description": "The eight components of ACL-1.0. Each must carry a state and a tier (ACL-1.0 §5).",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8"],
+      "properties": {
+        "C1": { "$ref": "#/$defs/component", "title": "Models" },
+        "C2": { "$ref": "#/$defs/component", "title": "Memory" },
+        "C3": { "$ref": "#/$defs/component", "title": "Tools" },
+        "C4": { "$ref": "#/$defs/component", "title": "Environments" },
+        "C5": { "$ref": "#/$defs/component", "title": "Feedback" },
+        "C6": { "$ref": "#/$defs/component", "title": "Coordination" },
+        "C7": { "$ref": "#/$defs/component", "title": "Authority" },
+        "C8": { "$ref": "#/$defs/component", "title": "Verification" }
+      }
+    },
+    "boundary_cases": {
+      "description": "Any component whose classification was contested during audit, with its reasoning (ACL-1.0 §6.7, §7). Required, but may be an empty array when no classification was contested.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["component", "reasoning"],
+        "properties": {
+          "component": { "$ref": "#/$defs/componentId" },
+          "reasoning": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "access_limits": {
+      "description": "Components the auditor could not test, stated plainly (ACL-1.0 §6.5, §8). Required. For a fully open system this array may be empty, and that empty statement is itself the finding.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["component", "note"],
+        "properties": {
+          "component": { "$ref": "#/$defs/componentId" },
+          "note": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "componentId": {
+      "type": "string",
+      "enum": ["C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8"]
+    },
+    "state": {
+      "description": "ACL-1.0 §4 classification state.",
+      "type": "string",
+      "enum": ["Constructed", "Partial", "Claimed", "Absent"]
+    },
+    "tier": {
+      "description": "ACL-1.0 §5 evidence tier. A: independent reproduction, disinterested. B: developer disclosure with reproducible method. C: developer disclosure without reproducible method. D: marketing/demonstration/statement.",
+      "type": "string",
+      "enum": ["A", "B", "C", "D"]
+    },
+    "component": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "tier", "basis"],
+      "properties": {
+        "state": { "$ref": "#/$defs/state" },
+        "tier": { "$ref": "#/$defs/tier" },
+        "basis": {
+          "description": "One-line basis for the finding (ACL-1.0 §8 report format).",
+          "type": "string",
+          "minLength": 1
+        },
+        "sources": {
+          "description": "Optional list of source ids (from the top-level 'sources' register) supporting this finding.",
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      },
+      "allOf": [
+        {
+          "$comment": "ACL-1.0 §4/§5: Tier C and D evidence cannot support Constructed. A state's tier is capped by the best available evidence; Constructed requires Tier A or B.",
+          "if": { "properties": { "state": { "const": "Constructed" } } },
+          "then": { "properties": { "tier": { "enum": ["A", "B"] } } }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,20 @@
+# AGICL blank ledger (ACL-1.0) — component rows.
+# States: Constructed | Partial | Claimed | Absent. Tiers: A | B | C | D (C/D cannot support Constructed).
+# The header block below (system, version, audit_date, auditor) and the boundary_cases / access_limits
+# sections travel with the ledger; CSV carries the eight component rows. Fill every state and tier.
+#
+# system,,
+# version,,
+# audit_date,,
+# auditor,,
+component,name,state,tier,basis
+C1,Models,,,
+C2,Memory,,,
+C3,Tools,,,
+C4,Environments,,,
+C5,Feedback,,,
+C6,Coordination,,,
+C7,Authority,,,
+C8,Verification,,,
+# boundary_cases (component,reasoning):
+# access_limits (component,note):

@@ -1,0 +1,35 @@
+# AGICL blank ledger — ACL-1.0
+# Fill every component with a state and a tier. A state without a tier is not an ACL result (ACL-1.0 §5).
+# States (ACL-1.0 §4): Constructed | Partial | Claimed | Absent
+# Tiers  (ACL-1.0 §5): A | B | C | D   (Tier C/D cannot support Constructed)
+# Components: C1 Models, C2 Memory, C3 Tools, C4 Environments,
+#            C5 Feedback, C6 Coordination, C7 Authority, C8 Verification
+
+protocol: ACL-1.0
+
+system:
+  name: ""
+  version: ""
+
+audit_date: ""      # YYYY-MM-DD
+auditor: ""
+
+components:
+  C1: { state: "", tier: "", basis: "" }   # Models
+  C2: { state: "", tier: "", basis: "" }   # Memory
+  C3: { state: "", tier: "", basis: "" }   # Tools
+  C4: { state: "", tier: "", basis: "" }   # Environments
+  C5: { state: "", tier: "", basis: "" }   # Feedback
+  C6: { state: "", tier: "", basis: "" }   # Coordination
+  C7: { state: "", tier: "", basis: "" }   # Authority
+  C8: { state: "", tier: "", basis: "" }   # Verification
+
+# Any contested classification and its reasoning (ACL-1.0 §7). May be empty.
+boundary_cases: []
+  # - component: C2
+  #   reasoning: ""
+
+# Components the auditor could not test (ACL-1.0 §6.5, §8). An empty list for a fully open system is itself the statement.
+access_limits: []
+  # - component: C1
+  #   note: ""

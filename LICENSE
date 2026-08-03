@@ -1,0 +1,78 @@
+AGIConstructor — Licensing
+===========================
+
+This repository is dual-licensed. Which license applies depends on the kind of
+file. This split is intentional: the written standards are meant to be cited and
+built on, while the machine-readable artifacts are meant to be freely reused in
+software.
+
+--------------------------------------------------------------------------------
+1. WRITTEN STANDARDS AND DOCTRINE  —  Creative Commons Attribution 4.0 (CC BY 4.0)
+--------------------------------------------------------------------------------
+
+Applies to the prose documents:
+
+    ACL-1.0.md
+    FOUNDATION_DOCTRINE.md
+    CONSTRUCTION_ONTOLOGY.md
+    ARCHITECTURE.md
+    ACL-2.0-CANDIDATES.md
+    README.md
+    examples/example-ledger.md
+
+You are free to share and adapt these documents for any purpose, including
+commercially, under the terms of CC BY 4.0, provided you give appropriate credit
+(a citation), link to the license, and indicate if changes were made.
+
+Full text: https://creativecommons.org/licenses/by/4.0/legalcode
+Summary:   https://creativecommons.org/licenses/by/4.0/
+
+Suggested citation:
+    ACL-1.0 — AGI Component Ledger. AGIConstructor.com, 2026.
+
+Independent use of the ACL protocol itself: ACL-1.0 §9 grants that the protocol
+"may be applied, cited, reproduced, and published by any party without permission
+or notification," and that derived ledgers need not be shared with the
+maintainer. That grant governs application of the protocol; the CC BY 4.0 terms
+above govern reproduction and adaptation of the document text. The only condition
+for calling a result an ACL audit remains procedural (ACL-1.0 §9).
+
+--------------------------------------------------------------------------------
+2. MACHINE-READABLE ARTIFACTS AND CODE  —  MIT License
+--------------------------------------------------------------------------------
+
+Applies to the schema, templates, machine-readable example, and any code:
+
+    schema/**
+    templates/**
+    examples/example-ledger.json
+
+MIT License
+
+Copyright (c) 2026 Sohadot
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+--------------------------------------------------------------------------------
+3. THE index.html PAGE
+--------------------------------------------------------------------------------
+
+The presentation page (index.html) is licensed under MIT as above, with the
+caveat that the prose content it displays is drawn from the CC BY 4.0 documents
+and carries that attribution requirement when reproduced as text.
