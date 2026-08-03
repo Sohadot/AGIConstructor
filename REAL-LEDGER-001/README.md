@@ -53,6 +53,11 @@ OpenHands can or cannot do has been made. This is the setup and methodology reco
   verified run config, runtime target, budgets ($12.50 ceiling), and gates.
 - [`fixture/`](./fixture/) — the fixed offline `mathkit` task surface (two bounded tasks,
   combined hash `9d6c9b78…`; baseline + solvability verified).
+- [`build/openhands-ai-1.11.0.lock.txt`](./build/openhands-ai-1.11.0.lock.txt) — the full
+  hashed dependency lock (319 packages; lock sha256 `7222056a…`).
+- [`build-runbook.md`](./build-runbook.md) — exact **non-paid** build/boot/health commands.
+- [`security-review.md`](./security-review.md) — secret-handling + egress review of the object.
+- [`harness/`](./harness/) — external audit-harness skeleton (mock-mode plumbing; no ACL evidence).
 
 ## Rules for this ledger
 

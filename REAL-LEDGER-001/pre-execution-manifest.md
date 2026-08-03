@@ -62,13 +62,18 @@ Docker Engine:    [PENDING@BUILD — record exact version]
 Network:          outbound limited to OpenAI API + package/registry pulls; recorded
 ```
 
-## 5. Deployment-produced identity (PENDING@BUILD — method fixed, values not fabricated)
+## 5. Deployment-produced identity
 
-- Base Python image digest; runner image digest; workspace/agent-server image digest.
-- Full hashed dependency lock (`uv pip compile --generate-hashes` or `pip freeze` + hashes).
-- Exact Python patch and Docker Engine versions.
-- Fixture git commit SHA (fixture content hash already fixed: `9d6c9b78…`, see `fixture/manifest.json`).
-- **Configuration hash** = SHA-256 over: {sdist/wheel hashes + sub-dist versions + dep-lock hash + image digests + model id + full run config + MCP set + caps + fixture combined hash + task manifest}.
+- **DONE — full hashed dependency lock:** `build/openhands-ai-1.11.0.lock.txt`
+  (319 packages, 3913 sha256 hashes; lock sha256 `7222056aec4d51ff24459c3fe7164daa50754b288bd2d2c34150c8f3785c01d7`; py3.12/linux-x86_64). Carries all verified pins incl. `agent-client-protocol==0.12.0` (ACP).
+- **PENDING@HOST** — base Python / runner / workspace image digests (need Docker daemon; see `build-runbook.md` §4).
+- **PENDING@HOST** — exact Python patch + Docker Engine versions.
+- Fixture content hash fixed: `9d6c9b78…` (`fixture/manifest.json`); git commit SHA on merge.
+- **Configuration hash** = SHA-256 over: {app wheel/sdist hashes + sub-dist versions + **lock hash `7222056a…`** + image digests + model id + full run config + MCP set + caps + fixture combined hash + task manifest}.
+
+Companion docs: `build-runbook.md` (exact non-paid build/boot/health commands),
+`security-review.md` (secret handling — keys held as `SecretStr`, redacting profile store,
+no env dumps; telemetry + bind-address cautions), `harness/` (mock-mode plumbing skeleton).
 
 ## 6. Task suite (fixed; see `fixture/`)
 
