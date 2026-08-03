@@ -1,80 +1,82 @@
 # Deployment Plan — REAL-LEDGER-001
 
-**What will be run, exactly, before any classification. No paid execution, no credentials, no final model chosen yet.**
+**Object: `openhands-ai` 1.11.0 (PyPI), pinned local containerized execution. No paid run, no credentials, no classification yet.**
 
-Target object: **OpenHands OSS Application · CLI surface · local Docker runtime · release
-`v1.8.0`** (pending `source-pin.md` blockers). The guiding rule: **use the documented
-default configuration wherever possible.** Optional MCP servers, sub-agent delegation, and
-extra security policies are **not** enabled merely to make components appear present.
+Installs the hash-verified PyPI artifact into a pinned container and prepares a reproducible
+run. Guiding rule: **use documented defaults**; do not enable MCP servers, sub-agent
+delegation, or extra policies merely to make components appear present.
 
-## 1. Runtime and image
+## 1. Install identity (from `source-pin.md`, VERIFIED)
+
+```
+Distribution:    openhands-ai == 1.11.0
+Wheel:           openhands_ai-1.11.0-py3-none-any.whl
+Wheel SHA-256:   833de097150d498ffc7e175869df4723aec4a6b3c0be27545ca37089e6452c8f
+Sdist:           openhands_ai-1.11.0.tar.gz
+Sdist SHA-256:   95bf563bd3d34876ea6284e28321c034fa44491a46b21e32bf5cc54d118bbf78
+Python:          >=3.12,<3.14   (pin exact patch at build)
+Install with hash pinning, e.g.:
+  uv pip install "openhands-ai==1.11.0" --require-hashes   # or pip with a hashed lock
+```
+
+## 2. Runtime and images
 
 ```
 Runtime:            local Docker
-Image:              [BLOCKED — resolve official image name from source-pin.md]
-Image digest:       [BLOCKED — pin by sha256 digest, not tag]
-Host architecture:  [SET at deployment: amd64 | arm64]
-Network:            [default; record egress posture]
+Base container:     [SET — python 3.12/3.13 slim; pin by digest]
+Runner image:       [SET — openhands runtime/sandbox image; pin by DIGEST, not tag]
+Workspace image:    [SET — if distinct]
+Host architecture:  [SET — amd64 | arm64]
 ```
+The runtime/sandbox image reference is defined inside the package (docker==7.1.0 is a
+dependency); resolve its exact default image and pin by digest.
 
-## 2. CLI invocation (surface = CLI)
-
-```
-Launch:             openhands            # interactive CLI
-Task modes:         openhands -t "<task>"   |   openhands -f <taskfile>
-Config access:      Ctrl+P (LLM config, MCP palette)
-```
-
-## 3. Configuration (documented defaults; explicit, not maximal)
+## 3. Invocation surface (VERIFIED caveat)
 
 ```
-Confirmation policy:   DEFAULT = always-confirm   # do NOT pass --always-approve or --llm-approve
-                       (a second, separate run MAY vary this to observe the C7 surface —
-                        recorded as a distinct object, per the binding rule)
-Security analyzer:     off by default (only active via --llm-approve)  # informs C7, not C8
-MCP servers:           NONE                # explicit empty set, not left open
-Sub-agent delegation:  DISABLED unless proven to be a documented default of this object
-Model backend:         [CANDIDATES only, no key: e.g. a hosted model or a local/OSS model]
-                       # final choice deferred until cost/hardware requirements are documented
-Iteration/budget caps: [SET explicit values before any run]
+Entry point:        python -m openhands.server        # VERIFIED (app-server)
+NOTE:               openhands-ai 1.11.0 ships NO `openhands` console-script CLI, and the
+                    documented --llm-approve / --always-approve flags are NOT present in
+                    this artifact (see source-pin.md). Do NOT plan around the terminal-CLI
+                    docs. Surface decision (audit the app-server surface vs re-pin to a
+                    version that ships the terminal CLI) is an OPEN owner item.
 ```
 
-Rationale: enabling MCP or delegation "to score components" would fabricate presence. The
-first ledger records the **default** object. Configuration variants are separate objects
-(`audit-object-lock.md` binding rule).
-
-## 4. Task suite and repetition
+## 4. Configuration (documented defaults; explicit, not maximal)
 
 ```
-Task suite:      [DEFINE a small, fixed, public, reproducible set — e.g. bounded coding
-                  tasks on a pinned throwaway repo; no private data, no secrets]
-Repeat count:    [>= the ACL-1.0 repeatability requirement — a component reaches
-                  Constructed only across repetition, never a single demonstration]
+Confirmation policy:   default per artifact  # verify in source before running
+Security analyzer:     default per artifact  # informs C7 risk-gating, NOT C8
+MCP servers:           NONE (explicit empty set)
+Sub-agent delegation:  DISABLED unless a documented default of this artifact
+Model backend:         [CANDIDATES only, no key]   # final choice deferred to cost/hardware
+Iteration/budget caps: [SET explicit values]
 ```
 
-## 5. Configuration hash and artifacts
+## 5. Task suite, repetition, artifacts
 
 ```
-Configuration hash:  SHA-256 over the full resolved config (image digest + CLI flags +
-                     model id + MCP set + caps + task suite manifest)
-Artifacts to save:   exact commands, resolved config JSON, per-run transcripts/event logs,
-                     tool-call records, outputs, timestamps, and the config hash
+Task suite:      [DEFINE small, fixed, public, reproducible; no private data/secrets]
+Repeat count:    [>= ACL-1.0 repeatability requirement — Constructed needs repetition]
+Config hash:     SHA-256 over resolved config (image digests + dep-lock hash + model id +
+                 MCP set + caps + task manifest)
+Artifacts:       exact commands, resolved config, dep lock w/ hashes, per-run event logs,
+                 tool-call records, outputs, timestamps
 ```
 
-## 6. Explicit pre-execution gates (must all pass before running)
+## 6. Pre-execution gates (all must pass before any run)
 
-1. `source-pin.md` blockers resolved to `VERIFIED` (commit SHA, image digest, feature provenance).
-2. Cost and hardware requirements documented; a model chosen and justified.
-3. Credentials handling defined (no keys committed; secrets never enter the ledger).
-4. Task suite fixed and public; repeat count set.
-5. Configuration hash procedure fixed.
+1. Surface decision resolved (app-server vs terminal-CLI re-pin).
+2. Container base + runner/workspace image digests pinned; dep lock with hashes produced.
+3. Cost + hardware documented; model chosen and justified.
+4. Credentials handling defined (no keys committed; secrets never enter the ledger).
+5. Task suite fixed and public; repeat count set; config-hash procedure fixed.
 
 Until every gate passes: **no paid execution, no API key entered, no C1–C8 classification.**
 
-## 7. Known blockers carried forward
+## 7. Blockers carried forward
 
-- Docker image name + digest (from `source-pin.md`).
-- v1.8.0 commit SHA confirmation.
-- App-tag ↔ PyPI-`openhands-ai` reconciliation.
-- Feature provenance for CLI vs SDK-only.
-- Model/cost/hardware decision (owner input needed).
+- Surface definition for 1.11.0 (app-server vs CLI re-pin) — owner.
+- Runner/workspace image digests; full hashed dependency lock — deployment-produced.
+- Model / cost / hardware decision — owner.
+- Git commit mapping for `openhands-ai` 1.11.0 — provenance only, not blocking.

@@ -1,11 +1,17 @@
-# REAL-LEDGER-001 — OpenHands (object-definition phase)
+# REAL-LEDGER-001 — OpenHands Python Agent (`openhands-ai` 1.11.0)
 
 **The first attempt to apply ACL-1.0 to a real system. Not yet a completed ledger.**
 
-Status: **OBJECT-DEFINITION PHASE** — no component has been classified.
+Object: **`openhands-ai` 1.11.0** (PyPI), pinned local containerized execution.
+Status: **OBJECT-DEFINITION / DEPLOYMENT-PLANNING PHASE** — no component has been classified.
 Opened: 2026-08-03
 Auditor: Sohadot (in progress)
 Protocol: ACL-1.0 (frozen; not modified by this ledger)
+
+> The object was re-pinned during source resolution: the GitHub tag `v1.8.0` proved to be
+> `@openhands/agent-canvas` (a GUI orchestrator), while the agent/CLI is the independently
+> distributed PyPI package `openhands-ai`. See `source-pin.md` → Object-resolution history.
+> This collision is REAL-LEDGER-001's first substantive result (TF-001-A).
 
 ---
 

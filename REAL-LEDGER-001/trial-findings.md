@@ -64,10 +64,16 @@ source commit + sub-component versions.* **Candidate protocol gap** (overlaps
 `ACL-2.0-CANDIDATES.md` C-06). See `source-pin.md` for the full evidence table. This is the
 object-identity trap caught in practice, before any classification.
 
-### TF-001-B — Execution surface
-Within OSS, OpenHands runs as a local GUI (Agent Canvas), a CLI, and an SDK/headless
-library; defaults and available controls differ. *Lock field: Deployment surface.*
-**Execution note.**
+### TF-001-B — Execution surface (now VERIFIED, and sharper than expected)
+Within OSS, OpenHands presents multiple surfaces, and they do not all exist in every
+artifact/version. Verified against the installed object: **`openhands-ai` 1.11.0 ships no
+`openhands` console-script CLI** (`project.scripts` empty; no `cli` module) and the
+documented `--llm-approve`/`--always-approve` flags appear in **zero** files — 1.11.0 is
+**app-server-oriented** (`python -m openhands.server`). The documented "CLI mode" therefore
+describes a different version/distribution than the current release. The *surface* is part
+of the object identity and cannot be assumed from docs. *Lock field: Deployment surface +
+verified invocation.* **Candidate protocol gap** (surface identity), upgraded from an
+execution note because the assumed surface was absent from the pinned artifact.
 
 ### TF-001-C — Injected model backend (C1)
 The model is wrapped by LiteLLM and selected by configuration (`LLM_MODEL`, base URL,
