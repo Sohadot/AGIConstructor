@@ -43,6 +43,29 @@ Current object. Latest at lock time; hash-verified PyPI artifacts. See lock belo
 declares this repo as its homepage, but the repo's tagged content is Agent Canvas (TS), so
 the declared repo does not directly host the `openhands-ai` Python source at a matching tag.
 
+## Pinned sub-distributions and model — VERIFIED
+
+`openhands-ai` 1.11.0 pins the agent core and tools as separate distributions (`==`):
+
+| Distribution | Version | Note |
+|---|---|---|
+| `openhands-sdk` | 1.34.0 | agent core + LLM config + `VERIFIED_MODELS`; wheel sha256 `35f7012f1e09c9edd6c5be3797daea4ed9f23751b2b802107ce2f3b069aef85b` (recomputed) |
+| `openhands-agent-server` | 1.34.0 | agent server |
+| `openhands-tools` | 1.34.0 | tools |
+| `litellm` | 1.84.1 | LLM gateway |
+| `openai` | 2.33.0 | OpenAI client |
+| `docker` | 7.1.0 | sandbox runtime |
+
+**Object identity spans multiple distributions** — component evidence (C1/C3/C8) largely
+lives in `openhands-sdk`/`openhands-tools` 1.34.0, not the app wheel. Reinforces TF-001-A.
+
+**Model verification (against `openhands-sdk` 1.34.0):**
+- `gpt-5-2025-08-07` **is** in `VERIFIED_OPENAI_MODELS` → `VERIFIED_IN_LOCKED_OBJECT`.
+  (So is `gpt-5-mini-2025-08-07`.)
+- LLM config fields present: `temperature`, `num_retries` (default 5), `timeout` (default
+  300), `reasoning_effort` (`low|medium|high|xhigh|none`). `verbosity` is
+  `NOT_PRESENT_IN_LOCKED_OBJECT` — omitted from the run config.
+
 ## Feature / surface provenance (against the installed 1.11.0 artifact)
 
 | Feature | Grade | Evidence |

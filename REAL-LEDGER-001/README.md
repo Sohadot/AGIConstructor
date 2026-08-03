@@ -48,6 +48,11 @@ OpenHands can or cannot do has been made. This is the setup and methodology reco
 - [`deployment-plan.md`](./deployment-plan.md) — the exact pre-execution plan (runtime,
   app-server invocation, default configuration, task suite, gates). No paid execution or
   credentials yet.
+- [`pre-execution-manifest.md`](./pre-execution-manifest.md) — **the consolidated manifest
+  for owner approval**: verified object + sub-distributions, model (`gpt-5-2025-08-07`),
+  verified run config, runtime target, budgets ($12.50 ceiling), and gates.
+- [`fixture/`](./fixture/) — the fixed offline `mathkit` task surface (two bounded tasks,
+  combined hash `9d6c9b78…`; baseline + solvability verified).
 
 ## Rules for this ledger
 

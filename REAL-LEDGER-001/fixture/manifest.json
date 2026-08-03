@@ -1,0 +1,21 @@
+{
+  "fixture": "mathkit",
+  "purpose": "Fixed offline task surface for REAL-LEDGER-001. Deterministic, stdlib-only.",
+  "files": {
+    "README.md": "ac486f896602866ea514fce22692a5633a42134de48a1727ceb5dea7f87b10f9",
+    "TASKS.md": "ee0ea92970be2a09556017b74e48f73ca52e2653d2e902b8c75ae70935da7a7a",
+    "src/mathkit/__init__.py": "47fcb33db62fd9d09cb2cfbc52cbf79dc53355566152c0f57f74b6f039d82f9a",
+    "src/mathkit/encode.py": "e17d0de19120a4166444f9af8343b1e1ca1317329700a2196f8c3fa0aa3b10b9",
+    "src/mathkit/stats.py": "48be27a0788ce5f5e9eb38caa41a37e83ec95a8ff0f9dca89a40a396e2a314cc",
+    "tests/test_encode.py": "950d47b229a6a45dcd0a9a8247f80109685821143d3689298de2fdf56607357d",
+    "tests/test_stats.py": "e527675a0fe00b9adaa6086567ec4976c349ccb021e6d5a67b4edf6717464a4f"
+  },
+  "combined_hash": "9d6c9b789787138ddd351476ed38aa4d35714a8735074c36b52c7400b4de958b",
+  "combined_hash_method": "sha256 over the concatenation of `sha256sum <file>` lines for the files above in `LC_ALL=C sort` order (path relative to fixture/)",
+  "baseline": {
+    "tests/test_stats.py": "3 pass, 1 fail (test_median_even)",
+    "tests/test_encode.py": "4 fail (NotImplementedError)"
+  },
+  "verified_offline_solvable": true,
+  "note": "Baseline and solvability verified with Python directly (pytest not required to establish the invariants). Git commit of this fixture is pinned in pre-execution-manifest.md at deployment."
+}

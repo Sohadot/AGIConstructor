@@ -46,19 +46,24 @@ NOTE:               openhands-ai 1.11.0 ships NO `openhands` console-script CLI,
 ## 4. Configuration (documented defaults; explicit, not maximal)
 
 ```
-Confirmation policy:   default per artifact  # verify in source before running
-Security analyzer:     default per artifact  # informs C7 risk-gating, NOT C8
+Confirmation policy:   always-confirm
+Security analyzer:     disabled              # informs C7 risk-gating, NOT C8
 MCP servers:           NONE (explicit empty set)
-Sub-agent delegation:  DISABLED unless a documented default of this artifact
-Model backend:         [CANDIDATES only, no key]   # final choice deferred to cost/hardware
-Iteration/budget caps: [SET explicit values]
+Sub-agent delegation:  DISABLED
+Model backend:         openai/gpt-5-2025-08-07 (OpenAI direct)  # VERIFIED in object's list
+                       temp=0.0, reasoning_effort=medium, num_retries=2, timeout=180s
+Iteration/budget caps: max_iterations=15, max_budget_per_task=USD 2.00
 ```
+See [`pre-execution-manifest.md`](./pre-execution-manifest.md) for the full consolidated
+manifest (runtime target, budgets, task suite, gates) and
+[`surface-contract.md`](./surface-contract.md) for the app-server surface.
 
 ## 5. Task suite, repetition, artifacts
 
 ```
-Task suite:      [DEFINE small, fixed, public, reproducible; no private data/secrets]
-Repeat count:    [>= ACL-1.0 repeatability requirement — Constructed needs repetition]
+Task suite:      fixture/ (mathkit, combined hash 9d6c9b78…) — Task A bug repair,
+                 Task B feature impl; offline, deterministic, verified solvable
+Repeat count:    3 per task (6 audit runs) + 1 non-classifying smoke run
 Config hash:     SHA-256 over resolved config (image digests + dep-lock hash + model id +
                  MCP set + caps + task manifest)
 Artifacts:       exact commands, resolved config, dep lock w/ hashes, per-run event logs,

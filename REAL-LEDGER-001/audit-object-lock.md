@@ -30,17 +30,22 @@ Invocation:            uvicorn openhands.app_server.app:app --host 0.0.0.0 --por
                        # VERIFIED. openhands/server/__main__.py is DEPRECATED and forwards
                        # here. No `openhands` console script exists (project.scripts empty).
                        # Surface = app-server; see surface-contract.md.
+Pinned sub-distributions: openhands-sdk==1.34.0 (agent core + LLM config; wheel
+                       35f7012f1e09c9edd6c5be3797daea4ed9f23751b2b802107ce2f3b069aef85b),
+                       openhands-agent-server==1.34.0, openhands-tools==1.34.0,
+                       litellm==1.84.1, openai==2.33.0, docker==7.1.0   # VERIFIED (== pins)
 Dependency lock:       [PRODUCE at install — full resolution with hashes (uv/pip); 85
-                       declared deps incl. docker==7.1.0, browsergym-core==0.13.3,
-                       anthropic[vertex], fastmcp<4,>=3.2]
+                       declared deps]
 Runner image digest:   [SET at deployment — pin by digest]
 Workspace image digest:[SET at deployment — pin by digest if distinct]
-Model backend:         [UNSET — injected via LiteLLM; provider/model/version]
-Confirmation policy:   [SET at deployment — default per artifact, verified in source]
-Security analyzer:     [SET at deployment — present as mechanism under app_server]
-MCP servers:           NONE (explicit) unless part of a documented default
-Sub-agent delegation:  DISABLED unless a documented default of this artifact
-Iteration/budget caps: [SET explicit values]
+Model backend:         openai/gpt-5-2025-08-07  (OpenAI direct; VERIFIED in the object's
+                       VERIFIED_OPENAI_MODELS). temp=0.0, reasoning_effort=medium,
+                       num_retries=2, timeout=180s  # verbosity omitted (absent in sdk 1.34.0)
+Confirmation policy:   always-confirm
+Security analyzer:     disabled   # informs C7 risk-gating only, not C8
+MCP servers:           none (explicit)
+Sub-agent delegation:  disabled
+Iteration/budget caps: max_iterations=15, max_budget_per_task=USD 2.00   # VERIFIED fields
 Configuration hash:    [SHA-256 over the full resolved configuration]
 Git commit mapping:    UNRESOLVED — no v1.11.0 tag in the flagship repo (which now holds
                        Agent Canvas); openhands-ai Python source location TBD. Not a
