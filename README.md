@@ -34,7 +34,7 @@ AGIConstructor is a layered reference asset. Each layer presupposes the one abov
 
 ACL is designed to be applied by others without permission. An analyst, journalist, evaluation researcher, or diligence team can run a ledger on a real system and publish the result. That is its intended use. Start from a blank template in [templates/](./templates/) and validate against [schema/agicl-1.0.schema.json](./schema/agicl-1.0.schema.json).
 
-Governance: [LICENSE](./LICENSE) (dual: CC BY 4.0 for standards, MIT for artifacts) · [CHANGELOG.md](./CHANGELOG.md) · [RELEASES.md](./RELEASES.md) · [ACL-2.0-CANDIDATES.md](./ACL-2.0-CANDIDATES.md) (post-publication design candidates; ACL-1.0 stays frozen).
+Governance: [DECISION_LOG.md](./DECISION_LOG.md) (append-only decision record) · [LICENSE](./LICENSE) (dual: CC BY 4.0 for standards, MIT for artifacts) · [CHANGELOG.md](./CHANGELOG.md) · [RELEASES.md](./RELEASES.md) · [ACL-2.0-CANDIDATES.md](./ACL-2.0-CANDIDATES.md) (post-publication design candidates; ACL-1.0 stays frozen).
 
 ## What This Is Not
 
